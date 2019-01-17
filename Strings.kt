@@ -38,3 +38,21 @@ fun String.applyMask(mask: String): String {
 
     return builder.toString()
 }
+
+fun String.paseDate(pattern: String? = null): Date? {
+    var parsedDate: Date? = null
+    val dateFormatIso8601 = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+    
+    pattern?.let {datePattern ->
+        try {
+            val dateFormatByPattern= SimpleDateFormat(datePattern, Locale.getDefault())
+            parsedDate = dateFormatIso8601.parse(this)
+        } catch (e: Exception) {}
+    } ?: run {
+        try {
+            parsedDate = dateFormatIso8601.parse(this)
+        } catch (e: Exception) {}    
+    }
+    
+    return parsedDate
+}
