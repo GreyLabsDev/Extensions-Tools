@@ -45,8 +45,8 @@ fun String.parseDate(pattern: String? = null): Date? {
     
     pattern?.let {datePattern ->
         try {
-            val dateFormatByPattern= SimpleDateFormat(datePattern, Locale.getDefault())
-            parsedDate = dateFormatIso8601.parse(this)
+            val dateFormatByPattern = SimpleDateFormat(datePattern, Locale.getDefault())
+            parsedDate = dateFormatByPattern.parse(this)
         } catch (e: Exception) {}
     } ?: run {
         try {
