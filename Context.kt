@@ -1,9 +1,6 @@
 
 fun Context.hasInternetConnection(): Boolean {
-    (this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo?.let {info ->
-        return info.isConnected
-    }
-    return false
+    return (this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo?.isConnected == true
 }
 
 fun Context.getPixelsFromDp(dpValue: Float): Float {
