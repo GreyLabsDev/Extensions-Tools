@@ -1,11 +1,7 @@
 
 fun Context.hasInternetConnection(): Boolean {
-    val connectivityManager = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    val networkInfo = connectivityManager.activeNetworkInfo
-    networkInfo?.let {info ->
-        if (info.isConnected) {
-            return true
-        }
+    (this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo?.let {info ->
+        return info.isConnected
     }
     return false
 }
