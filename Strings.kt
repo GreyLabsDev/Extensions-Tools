@@ -1,6 +1,19 @@
 /**
+ * @author Sergey Sh. (GreyLabsDev) 2019
+ *
+ * @param mask
+ * This is your masking pattern for current string
+ *
+ * @param hideSymbols
+ * Use this parameter if you want to replace some symbols
+ * it your string with special character
+ *
+ * @param replacingCharacter
+ * This character will be used for replacing
+ *
  * Mask format rules:
  * S - symbol
+ * * - symbol that you want to hide with special character or string
  * empty space - space between symbols
  *
  * You car use not full length mask,
@@ -18,14 +31,23 @@
  * this mask from "123456" makes "1 23-4(56)"
  */
 
-fun String.applyMask(mask: String): String {
+fun String.applyMask(mask: String, hideSymbols: Boolean = false, replacingCharacter: String = "*"): String {
     val builder = StringBuilder()
     var stringCharIndex = 0
+
     for (i in 0 until mask.length) {
         when (mask[i].toString()) {
             "S" -> {
-                builder.append(this[stringCharIndex])
-                stringCharIndex++
+                if (stringCharIndex <= this.lastIndex) {
+                    builder.append(this[stringCharIndex])
+                    stringCharIndex++
+                }
+            }
+            "*" -> {
+                if (stringCharIndex <= this.lastIndex) {
+                    builder.append(replacingCharacter)
+                    stringCharIndex++
+                }
             }
             else -> {
                 builder.append(mask[i])
