@@ -44,10 +44,10 @@ fun String.applyMask(mask: String, hideSymbols: Boolean = false, replacingCharac
                 }
             }
             "*" -> {
-                if (stringCharIndex <= this.lastIndex) {
+                if (hideSymbols && stringCharIndex <= this.lastIndex) {
                     builder.append(replacingCharacter)
                     stringCharIndex++
-                }
+                } else builder.append(mask[i])
             }
             else -> {
                 builder.append(mask[i])
