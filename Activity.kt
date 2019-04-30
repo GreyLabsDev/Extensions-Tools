@@ -16,3 +16,10 @@ fun Activity.buildAlertDialog(title: String? = null,
     }
     return alertDialog
 }
+
+fun Activity.hideKeyboard() {
+    val inputMethodManager = this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    this.currentFocus?.let {focusedView ->
+            inputMethodManager.hideSoftInputFromWindow(focusedView.windowToken, 0)
+    }
+}
