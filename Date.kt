@@ -31,3 +31,12 @@ fun Date.getCurrentDateString() : String {
     val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     return dateFormat.format(this.time)
 }
+
+fun Date.getCurrentDayAndMonthString(): String {
+    val dateFormat = SimpleDateFormat("d MMMM", Locale.getDefault())
+    return dateFormat.format(this.time)
+}
+
+fun Long.extractDate() : Date {
+    return Date(this*1000L)
+}
