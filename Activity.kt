@@ -23,3 +23,28 @@ fun Activity.hideKeyboard() {
             inputMethodManager.hideSoftInputFromWindow(focusedView.windowToken, 0)
     }
 }
+
+fun Activity.addKeyboardListener(onKeyboardOpenedAction: (() -> Unit)? = null,
+                                 onKeyboardClosedAction: (() -> Unit)? = null): ViewTreeObserver.OnGlobalLayoutListener {
+    val rootView = this.findViewById<View>(android.R.id.content)
+    var opened = false
+    val globalLayoutListener = ViewTreeObserver.OnGlobalLayoutListener {
+        val rect = Rect().apply { rootView.getWindowVisibleDisplayFrame(this) }
+        val screenHeight = rootView.height
+        val keyboardHeight = screenHeight - rect.bottom
+        if ((keyboardHeight > screenHeight * 0.15) == opened) {
+            return@OnGlobalLayoutListener
+        }
+        opened = keyboardHeight > screenHeight * 0.15
+        if (opened) {
+            onKeyboardOpenedAction?.invoke()
+        } else onKeyboardClosedAction?.invoke()
+    }
+    rootView.viewTreeObserver.addOnGlobalLayoutListener(globalLayoutListener)
+    return globalLayoutListener
+}
+
+fun Activity.removeKeyboardListener(listener: ViewTreeObserver.OnGlobalLayoutListener) {
+    val rootView = this.findViewById<View>(android.R.id.content)
+    rootView.viewTreeObserver.removeOnGlobalLayoutListener(listener)
+}
