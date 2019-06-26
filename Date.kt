@@ -37,6 +37,15 @@ fun Date.getCurrentDayAndMonthString(): String {
     return dateFormat.format(this.time)
 }
 
+fun Date.getCurrentYear() : String {
+    val dateFormat = SimpleDateFormat("yyyy", Locale.getDefault())
+    return dateFormat.format(this.time)
+}
+
+fun Date.getCurrentYearInt() : Int {
+    return Integer.parseInt(this.getCurrentYear())
+}
+
 fun Long.extractDate() : Date {
     return Date(this*1000L)
 }
