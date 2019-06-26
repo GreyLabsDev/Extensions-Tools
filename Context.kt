@@ -7,6 +7,18 @@ fun Context.getPixelsFromDp(dpValue: Float): Float {
     return dpValue * this.resources.displayMetrics.density
 }
 
+fun Context.getScreenWidthInPixels(): Int {
+    val metrics = DisplayMetrics()
+    this.windowManager().defaultDisplay.getMetrics(metrics)
+    return metrics.widthPixels
+}
+
+fun Context.getScreenHeightInPixels(): Int {
+    val metrics = DisplayMetrics()
+    this.windowManager().defaultDisplay.getMetrics(metrics)
+    return metrics.heightPixels
+}
+
 fun Context.getDateDifferense(startDate: Date, endDate: Date): Pair<String,Long>? {
     
     var different = endDate.time - startDate.time
