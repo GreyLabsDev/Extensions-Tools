@@ -35,3 +35,7 @@ fun TextView.measureHeight(): Int {
     this.paint.getTextBounds(this.text.toString(), 0, this.text.toString().length, bound)
     return bound.height()
 }
+
+fun ViewGroup.inflate(resId: Int, attach: Boolean = false): View {
+    return LayoutInflater.from(context).inflate(resId, this, attach)
+}
