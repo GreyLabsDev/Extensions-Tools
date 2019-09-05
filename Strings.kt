@@ -78,3 +78,10 @@ fun String.parseDate(pattern: String? = null): Date? {
     
     return parsedDate
 }
+
+fun String.formatAsPrice(): String {
+    val formatter = NumberFormat.getInstance(Locale.FRANCE) as DecimalFormat
+    val rubleSymbol = "\u20BD"
+    formatter.applyPattern("#,###,###,### \u20BD")
+    return "${formatter.format(this.toInt())}"
+}
