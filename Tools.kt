@@ -2,6 +2,10 @@ inline fun <T: Any, R: Any> multiLet(vararg variables: T?, out: (List<T>) -> R?)
     return if (variables.all { it != null }) out (listOfNotNull(*variables)) else null
 }
 
+fun <T> randomFrom(vararg variables: T): T {
+    return variables.random()
+}
+
 fun Double.metersToLatLonDegrees(): Double {
     return this * 0.00001
 }
