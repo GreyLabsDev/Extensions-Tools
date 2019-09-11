@@ -6,9 +6,7 @@ fun Activity.buildAlertDialog(title: String? = null,
     message?.let { alertDialog.setMessage(it) }
     alertDialog.setMessage(message)
     alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes)) { dialog, _ ->
-        onPositiveBtnClick?.let {
-            it()
-        }
+        onPositiveBtnClick?.invoke()
         dialog.dismiss()
     }
     alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no)) { dialog, _ ->
