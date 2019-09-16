@@ -6,6 +6,17 @@ fun <T> randomFrom(vararg variables: T): T {
     return variables.random()
 }
 
+fun benchmarkAction(actionName: String, action: () -> Unit) {
+    Log.i("BENCHMARK", "___________________________________")
+    Log.i("BENCHMARK", "Action name: $actionName")
+    val startTime = System.currentTimeMillis()
+    Log.i("BENCHMARK", "Start time: $startTime")
+    action.invoke()
+    val endTime = System.currentTimeMillis()
+    Log.i("BENCHMARK", "End time: $endTime")
+    Log.i("BENCHMARK", "Action duration (millis): ${endTime - startTime}}")
+}
+
 fun Double.metersToLatLonDegrees(): Double {
     return this * 0.00001
 }
