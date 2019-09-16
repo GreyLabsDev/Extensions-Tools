@@ -35,7 +35,7 @@ fun String.applyMask(mask: String, hideSymbols: Boolean = false, replacingCharac
     val builder = StringBuilder()
     var stringCharIndex = 0
 
-    for (i in 0 until mask.length) {
+    for (i in mask.indices) {
         when (mask[i].toString()) {
             "S" -> {
                 if (stringCharIndex <= this.lastIndex) {
