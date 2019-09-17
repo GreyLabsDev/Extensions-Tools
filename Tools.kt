@@ -6,6 +6,10 @@ fun <T> randomFrom(vararg variables: T): T {
     return variables.random()
 }
 
+fun Boolean.then(action: () -> Unit) {
+    if (this) action.invoke()
+}
+
 fun benchmarkAction(actionName: String, action: () -> Unit) {
     Log.i("BENCHMARK", "___________________________________")
     Log.i("BENCHMARK", "Action name: $actionName")
