@@ -6,8 +6,14 @@ fun <T> randomFrom(vararg variables: T): T {
     return variables.random()
 }
 
-fun Boolean.then(action: () -> Unit) {
+fun Boolean.then(action: () -> Unit): Boolean {
     if (this) action.invoke()
+    return this
+}
+
+fun Boolean.orNot(action: () -> Unit): Boolean {
+    if (!this) action.invoke()
+    return this
 }
 
 fun benchmarkAction(actionName: String, action: () -> Unit) {
