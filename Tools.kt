@@ -6,11 +6,13 @@ fun <T> randomFrom(vararg variables: T): T {
     return variables.random()
 }
 
+//just for fun
 fun Boolean.then(action: () -> Unit): Boolean {
     if (this) action.invoke()
     return this
 }
 
+//just for fun
 fun Boolean.orNot(action: () -> Unit): Boolean {
     if (!this) action.invoke()
     return this
