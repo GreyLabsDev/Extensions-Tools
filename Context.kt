@@ -8,6 +8,7 @@ fun Context.hasInternetConnection(): Boolean {
 
 /**
  * Getting clean pixels from Density-independent Pixels
+ * 
  * @property dpValue - size in Density-independent Pixels
  */
 fun Context.getPixelsFromDp(dpValue: Float): Float {

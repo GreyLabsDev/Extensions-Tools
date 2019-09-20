@@ -1,5 +1,6 @@
 /**
  * Builds alert dialog with defined title, message and callback for click on positive button
+ * 
  * @property title
  * @property message
  */
@@ -69,6 +70,7 @@ fun Activity.addKeyboardListener(onKeyboardOpenedAction: (() -> Unit)? = null,
 
 /**
  * Removing ViewTreeObserver from activity, made for easier us of Activity.addKeyboardListener extension
+ * 
  * @property listener - listener needs to be removed
  */
 fun Activity.removeKeyboardListener(listener: ViewTreeObserver.OnGlobalLayoutListener) {
