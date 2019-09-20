@@ -1,3 +1,10 @@
+/**
+ * Put one of few prmitive types of values to SharedPreferences. Always using to reduce repeating code
+ * Returns false if your value is not one of supported primtves
+ *
+ * @property key
+ * @property value
+ */
 fun SharedPreferences.putPrimitiveValue(key: String, value: Any): Boolean {
     return when (value) {
         is Boolean -> {

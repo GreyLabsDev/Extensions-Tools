@@ -1,24 +1,49 @@
 
+/**
+ * Checking current network connection
+ */
 fun Context.hasInternetConnection(): Boolean {
     return (this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo?.isConnected == true
 }
 
+/**
+ * Getting clean pixels from Density-independent Pixels
+ * @property dpValue - size in Density-independent Pixels
+ */
 fun Context.getPixelsFromDp(dpValue: Float): Float {
     return dpValue * this.resources.displayMetrics.density
 }
 
+/**
+ * Getting device screen width in pixels
+ */
 fun Context.getScreenWidthInPixels(): Int {
     val metrics = DisplayMetrics()
     this.windowManager().defaultDisplay.getMetrics(metrics)
     return metrics.widthPixels
 }
 
+/**
+ * Getting device screen height in pixels
+ */
 fun Context.getScreenHeightInPixels(): Int {
     val metrics = DisplayMetrics()
     this.windowManager().defaultDisplay.getMetrics(metrics)
     return metrics.heightPixels
 }
 
+/**
+ * Getting difference between two dates in format like : "Type of difference in Days/Hours e.t.c - Value of difference"
+ * 
+ * @property startDate
+ * @property endDate
+ * 
+ * Differences types symbols:
+ * "D" - days
+ * "H" - hours
+ * "M" - minutes
+ * "S" - seconds
+ */
 fun Context.getDateDifferense(startDate: Date, endDate: Date): Pair<String,Long>? {
     
     var different = endDate.time - startDate.time

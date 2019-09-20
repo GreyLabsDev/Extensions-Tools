@@ -22,6 +22,9 @@ fun Date.getCurrentDayString(): String {
     return dateFormat.format(this.time)
 }
 
+/**
+ * Getting current weekday name string
+ */
 fun Date.getCurrentWeekdayString() : String {
     val weekdayFormat = SimpleDateFormat("EEEE", Locale.getDefault())
     return weekdayFormat.format(this.time)
@@ -46,6 +49,9 @@ fun Date.getCurrentYearInt() : Int {
     return Integer.parseInt(this.getCurrentYear())
 }
 
+/**
+ * Getting date from Unix time
+ */
 fun Long.extractDate() : Date {
     return Date(this*1000L)
 }

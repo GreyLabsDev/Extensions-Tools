@@ -1,23 +1,82 @@
+
+/**
+ * Multiple let. Allows you to use .let for few variables combinig its in vararg 
+ * and if all of them is not null returning list of checked non-null values with same order.
+ * 
+ * multiLet(a,b,c) { values ->
+ *     print("a is not null and = ${values[0]}")
+ *     print("b is not null and = ${values[1]}")
+ *     print("c is not null and = ${values[2]}")
+ * }
+ * 
+ * @property variables - vararg of input nullable variables
+ */
 inline fun <T: Any, R: Any> multiLet(vararg variables: T?, out: (List<T>) -> R?): R? {
     return if (variables.all { it != null }) out (listOfNotNull(*variables)) else null
 }
 
+/**
+ * Returnng random element from input variables
+ * 
+ * val randomLetter = randomFrom("a","b","c","d","e","f","g")
+ * 
+ * @property variables
+ */
 fun <T> randomFrom(vararg variables: T): T {
     return variables.random()
 }
 
-//just for fun
+/**
+ * JUST FOR FUN!
+ * Because why not?
+ * 
+ * replace for stadard if (condition) { action } constructon to more beautiful:
+ * 
+ * condition.then {
+ *     action
+ * }
+ * 
+ * @property action - action that you want to do if condition is true
+ * 
+ */
 fun Boolean.then(action: () -> Unit): Boolean {
     if (this) action.invoke()
     return this
 }
 
-//just for fun
+/**
+ * JUST FOR FUN!
+ * Because why not?
+ * 
+ * replace for stadard if (!condition) { action } constructon to more beautiful:
+ * 
+ * condition.orNot {
+ *     action
+ * }
+ * 
+ * can be used with previous .then extension in chain like this:
+ * 
+ * condition.then {
+ *    action
+ * }.orNot {
+ *    another action 
+ * }
+ * 
+ * @property action - action that you want to do if condition is false
+ * 
+ */
 fun Boolean.orNot(action: () -> Unit): Boolean {
     if (!this) action.invoke()
     return this
 }
 
+
+/**
+ * Simple way to calculate approximated function execution time 
+ * 
+ * @property actionName - String to define action name in logcat 
+ * @property action - action to measure 
+ */
 fun benchmarkAction(actionName: String, action: () -> Unit) {
     Log.i("BENCHMARK", "___________________________________")
     Log.i("BENCHMARK", "Action name: $actionName")
@@ -29,39 +88,31 @@ fun benchmarkAction(actionName: String, action: () -> Unit) {
     Log.i("BENCHMARK", "Action duration (millis): ${endTime - startTime}}")
 }
 
+
+/**
+ * Getting approximated Lat/Lng degrees value from meters
+ */
 fun Double.metersToLatLonDegrees(): Double {
     return this * 0.00001
 }
 
+/**
+ * Just for better reading
+ */
 fun <T>Collection<T>.hasOnlySingleItem(): Boolean {
     return this.size == 1
 }
 
+/**
+ * Great thing if you wand to add some item to mutable list if it is not n this list now or
+ * remove this item, if list contains it in many parts of code
+ * 
+ * @property element - element to adding or removing
+ */
 fun <T>MutableList<T>.addOrRemove(element: T) {
     if (this.contains(element)) this.remove(element) else this.add(element)
 }
 
-fun TextView.setTextOrHide(text: String?) {
-    text?.let {
-        this.text = it
-    } ?: run {
-        this.visibility = View.GONE
-    }
-}
-
-fun TextView.setTextWithAnimation(text: String, duration: Long) {
-    val stepDuration = duration/2
-    this.animate()
-            .alpha(0f)
-            .setDuration(stepDuration)
-            .withEndAction {
-                this.text = text
-                this.animate()
-                        .alpha(1f)
-                        .setDuration(stepDuration)
-                        .start()
-            }.start()
-}
 
 fun <T> Collection<T>?.joinToStringOrNull(separator: CharSequence): String? {
     return when {
@@ -76,6 +127,9 @@ fun <T> Collection<T>?.joinToStringOrNull(separator: CharSequence): String? {
     }
 }
 
+/**
+ * Like .first() but .second() =)
+ */
 fun <T> List<T>.second(): T? {
     return when {
         isEmpty() -> null
@@ -84,6 +138,13 @@ fun <T> List<T>.second(): T? {
     }
 }
 
+/**
+ * Checking that all elements is equals
+ * 
+ * @property values - vararg of checking elements
+ * 
+ * allIsEqual("test", "test", "test") will return true
+ */
 fun <T>allIsEqual(vararg values: T): Boolean {
     when {
         values.isEmpty() -> return false
@@ -95,6 +156,24 @@ fun <T>allIsEqual(vararg values: T): Boolean {
     return true
 }
 
+/**
+ * Executing out callback if all vararg values is not null
+ * 
+ * Like .multilet , but not returning values
+ * 
+ * val a = "a"
+ * val b = "b"
+ * val c = null
+ * 
+ * allIsNotNull(a,b) {
+ *     this action will be executed
+ * }
+ * 
+ * allIsNotNull(a,b,c) {
+ *     this action will NOT be executed
+ * }
+ * 
+ */
 fun <T, R>allIsNotNull(vararg values: T, out: () -> R?): R? {
     values.forEach {
         if (it == null) return null

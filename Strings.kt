@@ -61,6 +61,11 @@ fun String.applyMask(mask: String, hideSymbols: Boolean = false, replacingCharac
     return builder.toString()
 }
 
+/**
+ * Parsing date from string by default of custom pattern, return null if parsing failed
+ * 
+ * @property pattern - date pattern
+ */
 fun String.parseDate(pattern: String? = null): Date? {
     var parsedDate: Date? = null
     val dateFormatIso8601 = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
@@ -79,6 +84,9 @@ fun String.parseDate(pattern: String? = null): Date? {
     return parsedDate
 }
 
+/**
+ * Formatting string as price in roubles with money symbol
+ */
 fun String.formatAsPrice(): String {
     val formatter = NumberFormat.getInstance(Locale.FRANCE) as DecimalFormat
     val rubleSymbol = "\u20BD"
