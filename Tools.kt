@@ -161,6 +161,8 @@ fun <T>allIsEqual(vararg values: T): Boolean {
  * 
  * Like .multilet , but not returning values
  * 
+ * @property values - vararg of checking elements
+ * 
  * val a = "a"
  * val b = "b"
  * val c = null
