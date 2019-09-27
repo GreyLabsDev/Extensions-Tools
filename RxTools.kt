@@ -3,10 +3,10 @@ fun <T: Any>Subject<T>.subscribeObserveDefault(): Observable<T> {
         .observeOn(AndroidSchedulers.mainThread())
 }
 
-fun <T: Any>Subject<T>.subscribeSchedulers(): Observable<T> {
+fun <T: Any> Subject<T>.subscribeOnSchedulers(): Observable<T> {
     return this.subscribeOn(Schedulers.io())
 }
 
-fun <T: Any>Observable<T>.observeMainThread(): Observable<T> {
+fun <T: Any>Observable<T>.observeOnMainThread(): Observable<T> {
     return this.observeOn(AndroidSchedulers.mainThread())
 }
