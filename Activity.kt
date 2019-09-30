@@ -69,7 +69,7 @@ fun Activity.addKeyboardListener(onKeyboardOpenedAction: (() -> Unit)? = null,
 }
 
 /**
- * Removing ViewTreeObserver from activity, made for easier us of Activity.addKeyboardListener extension
+ * Removing ViewTreeObserver from activity, made for easier using Activity.addKeyboardListener extension
  * 
  * @property listener - listener needs to be removed
  */
