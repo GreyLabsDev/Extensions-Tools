@@ -24,3 +24,10 @@ fun Snackbar.addButton(context: Context,
     this.setAction(buttonText) { buttonOnClickAction() }
     this.setActionTextColor(optionalColor)
 }
+
+fun Snackbar.setMargins(left: Int = 0, top: Int = 0, right: Int = 0, bottom: Int = 0): Snackbar {
+    val params = this.view.layoutParams as ViewGroup.MarginLayoutParams
+    params.setMargins(left, top, right, bottom)
+    this.view.layoutParams = params
+    return this
+}
