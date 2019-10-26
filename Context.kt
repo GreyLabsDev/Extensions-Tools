@@ -34,6 +34,15 @@ fun Context.getScreenHeightInPixels(): Int {
 }
 
 /**
+ * Getting navigation bar height (if you dont want to use WindowInsets)
+ * */
+fun Context.getNavigationBarHeight(): Int {
+    val resId = this.resources.getIdentifier("navigation_bar_height", "dimen", "android")
+    return if (resId > 0) this.resources.getDimensionPixelSize(resId)
+           else 0
+}
+
+/**
  * Getting difference between two dates in format like : "Type of difference in Days/Hours e.t.c - Value of difference"
  * 
  * @property startDate
