@@ -30,3 +30,20 @@ fun TextView.setTextWithAnimation(text: String, duration: Long) {
                         .start()
             }.start()
 }
+
+fun TextView.setClickableText(clickableTextFragment: String, onclickAction: () -> Unit) {
+    val spannableString = SpannableString(this.text.toString())
+    if (spannableString.contains(clickableTextFragment)) {
+        val startIndex = spannableString.indexOf(clickableTextFragment)
+        val endIndex = startIndex + clickableTextFragment.length
+        val clickableSpan = object : ClickableSpan() {
+            override fun onClick(p0: View) {onclickAction.invoke()}
+        }
+        spannableString.setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        this.text = spannableString
+        this.movementMethod = LinkMovementMethod.getInstance()
+        this.highlightColor = Color.TRANSPARENT
+    } else {
+        throw Exception("Source TextView does not contain clickable text")
+    }
+}
