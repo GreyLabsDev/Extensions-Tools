@@ -36,23 +36,23 @@ fun TextView.setClickableText(
     useUnderline: Boolean = false,
     onclickAction: () -> Unit
 ) {
-    var spannableString = SpannableString(this.text.toString())
-    val startIndex = spannableString.indexOf(clickableTextFragment)
-    if (startIndex >= 0) {
-        val endIndex = startIndex + clickableTextFragment.length
-        val clickableSpan = object : ClickableSpan() {
-            override fun onClick(p0: View) {onclickAction.invoke()}
-            override fun updateDrawState(ds: TextPaint) {
-                super.updateDrawState(ds)
-                ds.isUnderlineText = useUnderline
+    text.indexOf(clickableTextFragment)
+        .takeIf { it >= 0 }
+        ?.let { startIndex ->
+            val endIndex = startIndex + clickableTextFragment.length
+            val clickableSpan = object : ClickableSpan() {
+                override fun onClick(p0: View) {onclickAction.invoke()}
+                override fun updateDrawState(ds: TextPaint) {
+                    super.updateDrawState(ds)
+                    ds.isUnderlineText = useUnderline
+                }
             }
+            text = SpannableString(text).apply {
+                setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
+            movementMethod = LinkMovementMethod.getInstance()
+            highlightColor = Color.TRANSPARENT
+        } ?: run {
+            throw Exception("Source TextView does not contain clickable text")
         }
-        spannableString.setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        this.text = spannableString
-        this.movementMethod = LinkMovementMethod.getInstance()
-        this.highlightColor = Color.TRANSPARENT
-    } else {
-        spannableString = null
-        throw Exception("Source TextView does not contain clickable text")
-    }
 }
