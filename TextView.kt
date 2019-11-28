@@ -33,18 +33,18 @@ fun TextView.setTextWithAnimation(text: String, duration: Long) {
 
 fun TextView.setClickableText(
     clickableTextFragment: String,
-    onclickAction: () -> Unit,
-    noUnderline: Boolean = false 
+    useUnderline: Boolean = false,
+    onclickAction: () -> Unit
 ) {
     val spannableString = SpannableString(this.text.toString())
-    if (spannableString.contains(clickableTextFragment)) {
-        val startIndex = spannableString.indexOf(clickableTextFragment)
+    val startIndex = spannableString.indexOf(clickableTextFragment)
+    if (startIndex >= 0) {
         val endIndex = startIndex + clickableTextFragment.length
         val clickableSpan = object : ClickableSpan() {
             override fun onClick(p0: View) {onclickAction.invoke()}
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
-                ds.isUnderlineText = noUnderline.not()
+                ds.isUnderlineText = useUnderline
             }
         }
         spannableString.setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
