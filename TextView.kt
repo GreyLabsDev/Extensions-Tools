@@ -51,6 +51,5 @@ fun TextView.setClickableText(
                 setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             }
             movementMethod = LinkMovementMethod.getInstance()
-            highlightColor = Color.TRANSPARENT
         } ?: throw Exception("Source TextView does not contain clickable text")
 }
