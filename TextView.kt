@@ -31,13 +31,21 @@ fun TextView.setTextWithAnimation(text: String, duration: Long) {
             }.start()
 }
 
-fun TextView.setClickableText(clickableTextFragment: String, onclickAction: () -> Unit) {
+fun TextView.setClickableText(
+    clickableTextFragment: String,
+    onclickAction: () -> Unit,
+    noUnderline: Boolean = false 
+) {
     val spannableString = SpannableString(this.text.toString())
     if (spannableString.contains(clickableTextFragment)) {
         val startIndex = spannableString.indexOf(clickableTextFragment)
         val endIndex = startIndex + clickableTextFragment.length
         val clickableSpan = object : ClickableSpan() {
             override fun onClick(p0: View) {onclickAction.invoke()}
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = noUnderline.not()
+            }
         }
         spannableString.setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         this.text = spannableString
