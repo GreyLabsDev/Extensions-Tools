@@ -41,7 +41,7 @@ fun TextView.setClickableText(
         ?.let { startIndex ->
             val endIndex = startIndex + clickableTextFragment.length
             val clickableSpan = object : ClickableSpan() {
-                override fun onClick(p0: View) {onclickAction.invoke()}
+                override fun onClick(view: View) {onclickAction.invoke()}
                 override fun updateDrawState(ds: TextPaint) {
                     super.updateDrawState(ds)
                     ds.isUnderlineText = useUnderline
