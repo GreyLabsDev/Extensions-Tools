@@ -36,7 +36,7 @@ fun TextView.setClickableText(
     useUnderline: Boolean = false,
     onclickAction: () -> Unit
 ) {
-    val spannableString = SpannableString(this.text.toString())
+    var spannableString = SpannableString(this.text.toString())
     val startIndex = spannableString.indexOf(clickableTextFragment)
     if (startIndex >= 0) {
         val endIndex = startIndex + clickableTextFragment.length
@@ -52,6 +52,7 @@ fun TextView.setClickableText(
         this.movementMethod = LinkMovementMethod.getInstance()
         this.highlightColor = Color.TRANSPARENT
     } else {
+        spannableString = null
         throw Exception("Source TextView does not contain clickable text")
     }
 }
