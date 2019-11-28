@@ -52,7 +52,5 @@ fun TextView.setClickableText(
             }
             movementMethod = LinkMovementMethod.getInstance()
             highlightColor = Color.TRANSPARENT
-        } ?: run {
-            throw Exception("Source TextView does not contain clickable text")
-        }
+        } ?: throw Exception("Source TextView does not contain clickable text")
 }
