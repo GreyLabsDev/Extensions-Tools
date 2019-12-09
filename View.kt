@@ -66,3 +66,23 @@ fun TextView.measureHeight(): Int {
 fun ViewGroup.inflate(resId: Int, attach: Boolean = false): View {
     return LayoutInflater.from(context).inflate(resId, this, attach)
 }
+
+fun Animation.setAnimationListener(
+    onAnimationRepeat: (() -> Unit)? = null,
+    onAnimationEnd: (() -> Unit)? = null,
+    onAnimationStart: (() -> Unit)? = null
+) {
+    setAnimationListener(object : Animation.AnimationListener {
+        override fun onAnimationRepeat(p0: Animation?) {
+            onAnimationRepeat?.invoke()
+        }
+
+        override fun onAnimationEnd(p0: Animation?) {
+            onAnimationEnd?.invoke()
+        }
+
+        override fun onAnimationStart(p0: Animation?) {
+            onAnimationStart?.invoke()
+        }
+    })
+}
