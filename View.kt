@@ -86,3 +86,21 @@ fun Animation.setAnimationListener(
         }
     })
 }
+
+private fun EditText.listenChanges(
+        afterChangedListener: ((text: String) -> Unit)? = null,
+        beforeChangedListener: ((text: String,p1: Int, p2: Int, p3: Int) -> Unit)? = null,
+        textChangedListener: ((text: String, p1: Int, p2: Int, p3: Int) -> Unit)? = null
+    ) {
+        addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(editable: Editable?) {
+                afterChangedListener?.invoke(editable.toString())
+            }
+            override fun beforeTextChanged(chars: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                beforeChangedListener?.invoke(chars.toString(), p1, p2, p3)
+            }
+            override fun onTextChanged(chars: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                textChangedListener?.invoke(chars.toString(), p1, p2, p3)
+            }
+        })
+    }
