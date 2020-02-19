@@ -53,3 +53,21 @@ fun TextView.setClickableText(
             movementMethod = LinkMovementMethod.getInstance()
         } ?: throw Exception("Source TextView does not contain clickable text")
 }
+
+fun TextView.setStyledSpan(
+    styledTextFragment: String,
+    textColor: Int? = null,
+    textSizeSp: Int? = null,
+    isBoldText: Boolean = false
+) {
+    text.indexOf(styledTextFragment)
+        .takeIf { it >= 0 }
+        ?.let { startIndex ->
+            val endIndex = startIndex + styledTextFragment.length
+            text = SpannableString(text).apply {
+                textSizeSp?.let { setSpan(AbsoluteSizeSpan(it.spToPx(context),false), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE) }
+                textColor?.let { setSpan(ForegroundColorSpan(it), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE) }
+                if (isBoldText) setSpan(StyleSpan(android.graphics.Typeface.BOLD), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
+        }
+}
