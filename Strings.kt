@@ -87,11 +87,24 @@ fun String.parseDate(pattern: String? = null): Date? {
 /**
  * Formatting string as price in roubles with money symbol
  */
-fun String.formatAsPrice(): String {
+fun String.formatToPrice(): String {
     val formatter = NumberFormat.getInstance(Locale.FRANCE) as DecimalFormat
     val rubleSymbol = "\u20BD"
     formatter.applyPattern("#,###,###,### \u20BD")
     return "${formatter.format(this.toInt())}"
+}
+
+/**
+ * Formatting string as price with optional money symbol
+ */
+fun Number.formatToPrice(moneySymbol: String = ""): String {
+    return (NumberFormat.getInstance(Locale.FRANCE) as DecimalFormat).apply {
+        decimalFormatSymbols = DecimalFormatSymbols(Locale.getDefault()).apply {
+            decimalSeparator = '.'
+            groupingSeparator = ' '
+        }
+        applyPattern("#,###,###,###.## $moneySymbol")
+    }.format(this)
 }
 
 fun String.isValidEmail(): Boolean {
@@ -105,10 +118,4 @@ fun String.isValidEmail(): Boolean {
                 ")+"
     )
     return emailRegex.matcher(this).matches()
-}
-
-fun Number.formatAsPrice(useRoubleSymbol: Boolean = false): String {
-    return (NumberFormat.getInstance(Locale.FRANCE) as DecimalFormat).apply {
-        applyPattern("#,###,###,###${if (useRoubleSymbol) " \u20BD" else ""}")
-    }.format(this)
 }
