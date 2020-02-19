@@ -106,3 +106,9 @@ fun String.isValidEmail(): Boolean {
     )
     return emailRegex.matcher(this).matches()
 }
+
+fun Number.formatAsPrice(useRoubleSymbol: Boolean = false): String {
+    return (NumberFormat.getInstance(Locale.FRANCE) as DecimalFormat).apply {
+        applyPattern("#,###,###,###${if (useRoubleSymbol) " \u20BD" else ""}")
+    }.format(this)
+}
