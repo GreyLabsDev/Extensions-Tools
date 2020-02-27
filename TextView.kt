@@ -31,6 +31,42 @@ fun TextView.setTextWithAnimation(text: String, duration: Long) {
             }.start()
 }
 
+/**
+ * Setting new text to TextView with something like width transition animation
+ *
+ * @property text - text to set to TextView
+ * @property duration - animation final duration
+ */
+fun TextView.setTextWithTransition(text: String, animDuration: Long) {
+    val with = this.width
+    val thisText = this
+    val textLayoutParams = this.layoutParams
+    ValueAnimator.ofInt(with, 0).apply {
+        addUpdateListener { valueAnimator ->
+            val value = valueAnimator.animatedValue as Int
+            val layoutParams: ViewGroup.LayoutParams = textLayoutParams
+            layoutParams.width = value
+            thisText.layoutParams = layoutParams
+        }
+        doOnEnd {
+            thisText.text = text
+            thisText.measure(0,0)
+            ValueAnimator.ofInt(0, thisText.measuredWidth).apply {
+                addUpdateListener { valueAnimator ->
+                    val value = valueAnimator.animatedValue as Int
+                    val layoutParams: ViewGroup.LayoutParams = textLayoutParams
+                    layoutParams.width = value
+                    thisText.layoutParams = layoutParams
+                }
+                duration = animDuration
+                interpolator = AccelerateDecelerateInterpolator()
+            }.start()
+        }
+        duration = animDuration
+        interpolator = AccelerateDecelerateInterpolator()
+    }.start()
+}
+
 fun TextView.setClickableText(
     clickableTextFragment: String,
     useUnderline: Boolean = false,
