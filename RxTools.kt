@@ -3,30 +3,30 @@ fun <T: Any>Subject<T>.subscribeObserveDefault(): Observable<T> {
         .observeOn(AndroidSchedulers.mainThread())
 }
 
-fun Completable.schedulersSubscribe(): Completable {
+fun Completable.subscribeOnSchedulers(): Completable {
     return this.subscribeOn(Schedulers.io())
 }
 
-fun Completable.mainThreadObserve(): Completable {
+fun Completable.observeOnMain(): Completable {
     return this.observeOn(AndroidSchedulers.mainThread())
 }
 
-fun <T: Any> Subject<T>.schedulersSubscribe(): Observable<T> {
+fun <T: Any> Subject<T>.subscribeOnSchedulers(): Observable<T> {
     return this.subscribeOn(Schedulers.io())
 }
 
-fun <T: Any> Observable<T>.schedulersSubscribe(): Observable<T> {
+fun <T: Any> Observable<T>.subscribeOnSchedulers(): Observable<T> {
     return this.subscribeOn(Schedulers.io())
 }
 
-fun <T: Any>Observable<T>.mainThreadObserve(): Observable<T> {
+fun <T: Any>Observable<T>.observeOnMain(): Observable<T> {
     return this.observeOn(AndroidSchedulers.mainThread())
 }
 
-fun <T: Any> Single<T>.schedulersSubscribe(): Single<T> {
+fun <T: Any> Single<T>.subscribeOnSchedulers(): Single<T> {
     return this.subscribeOn(Schedulers.io())
 }
 
-fun <T: Any> Single<T>.mainThreadObserve(): Single<T> {
+fun <T: Any> Single<T>.observeOnMain(): Single<T> {
     return this.observeOn(AndroidSchedulers.mainThread())
 }
