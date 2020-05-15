@@ -93,3 +93,10 @@ fun Context.getDateDifferense(startDate: Date, endDate: Date): Pair<String,Long>
         }
     }
 }
+
+fun Context.getScreenInches() : Double {
+        val point = Point()
+        (this.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getRealSize(point)
+        val dm = this.resources.displayMetrics
+        return round(sqrt((point.x/dm.xdpi).toDouble().pow(2) + (point.y/dm.ydpi).toDouble().pow(2)))
+}
