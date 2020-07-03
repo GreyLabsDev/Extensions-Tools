@@ -27,6 +27,16 @@ fun <T> randomFrom(vararg variables: T): T {
 }
 
 /**
+ * Allows to use when without else block like this:
+ * 
+ * when(foo) {
+ *    bar -> doAction()
+ * }.exhaustive
+ */
+val <T> T.exhaustive: T
+    get() = this
+
+/**
  * JUST FOR FUN!
  * Because why not?
  * 
