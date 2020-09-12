@@ -119,3 +119,53 @@ fun String.isValidEmail(): Boolean {
     )
     return emailRegex.matcher(this).matches()
 }
+
+// Generate hash for string with supported algorithms
+
+private fun String.SHA256(hexChars: String): String {
+        val bytes = MessageDigest.getInstance("SHA-256")
+            .digest(this.toByteArray())
+        val out = StringBuilder(bytes.size * 2)
+        bytes.forEach {
+            val byte = it.toInt()
+            out.append(hexChars[byte shr 4 and 0x0f])
+            out.append(hexChars[byte and 0x0f])
+        }
+        return out.toString()
+    }
+
+    private fun String.SHA512(hexChars: String): String {
+        val bytes = MessageDigest.getInstance("SHA-512")
+            .digest(this.toByteArray())
+        val out = StringBuilder(bytes.size * 2)
+        bytes.forEach {
+            val byte = it.toInt()
+            out.append(hexChars[byte shr 4 and 0x0f])
+            out.append(hexChars[byte and 0x0f])
+        }
+        return out.toString()
+    }
+
+    private fun String.SHA1(hexChars: String): String {
+        val bytes = MessageDigest.getInstance("SHA-1")
+            .digest(this.toByteArray())
+        val out = StringBuilder(bytes.size * 2)
+        bytes.forEach {
+            val byte = it.toInt()
+            out.append(hexChars[byte shr 4 and 0x0f])
+            out.append(hexChars[byte and 0x0f])
+        }
+        return out.toString()
+    }
+
+    private fun String.MD5(hexChars: String): String {
+        val bytes = MessageDigest.getInstance("MD5")
+            .digest(this.toByteArray())
+        val out = StringBuilder(bytes.size * 2)
+        bytes.forEach {
+            val byte = it.toInt()
+            out.append(hexChars[byte shr 4 and 0x0f])
+            out.append(hexChars[byte and 0x0f])
+        }
+        return out.toString()
+    }
