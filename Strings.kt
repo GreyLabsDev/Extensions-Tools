@@ -120,6 +120,12 @@ fun String.isValidEmail(): Boolean {
     return emailRegex.matcher(this).matches()
 }
 
+// Check if string is any type of number
+
+fun String.isNumeric(): Boolean {
+        return this.matches(Regex("-?\\d+(\\.\\d+)?"))
+}
+
 // Generate hash for string with supported algorithms
 
 private fun String.SHA256(hexChars: String): String {
