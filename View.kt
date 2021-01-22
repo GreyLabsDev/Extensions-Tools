@@ -42,6 +42,7 @@ fun View.show() {
 /**
  * Measuring TextView width. Use this extension after view rendered
  */
+// TODO - migrate to text.paint.measureText()
 fun TextView.measureWidth(): Int {
     val bound = Rect()
     this.paint.getTextBounds(this.text.toString(), 0, this.text.toString().length, bound)
