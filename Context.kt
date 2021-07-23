@@ -100,3 +100,7 @@ fun Context.getScreenInches() : Double {
         val dm = this.resources.displayMetrics
         return round(sqrt((point.x/dm.xdpi).toDouble().pow(2) + (point.y/dm.ydpi).toDouble().pow(2)))
 }
+
+fun Context.hasHaptickFeedback(): Boolean {
+    return Settings.System.getInt(this.contentResolver, Settings.System.HAPTIC_FEEDBACK_ENABLED, 0) != 0
+}
