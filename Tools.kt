@@ -193,6 +193,7 @@ fun <T, R>allIsNotNull(vararg values: T, out: () -> R?): R? {
     return out()
 }
 
+// Check contains ignoring case
 fun List<String>.containsIgnoreCase(value: String?): Boolean {
 	this.forEach {
 		if (it.equals(value, true)) return true
