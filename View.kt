@@ -105,3 +105,40 @@ private fun EditText.listenChanges(
             }
         })
     }
+
+/**
+ * Easy pinch-to-zoom for imageView
+ * WARNING - Work in progress 
+ *
+ * @property isOn - switching on/off this feature
+ */
+
+private fun ImageView.setPinchToZoom(isOn: Boolean) {
+        val view = this
+        if (isOn) {
+            var scaleFactor = 1.0f
+            val scaleListener = ScaleGestureDetector(
+                view.context,
+                object : ScaleGestureDetector.OnScaleGestureListener {
+                    override fun onScale(detector: ScaleGestureDetector?): Boolean {
+                        scaleFactor *= detector?.scaleFactor ?: 1f
+                        if (scaleFactor < 1.0f) scaleFactor = 1f
+                        view.scaleX = scaleFactor
+                        view.scaleY = scaleFactor
+                        Log.d("PINCH_ZOOM", "${detector?.scaleFactor}")
+                        return true
+                    }
+
+                    override fun onScaleBegin(detector: ScaleGestureDetector?): Boolean {
+                        return (detector?.scaleFactor ?: 0f) > 0.01
+                    }
+
+                    override fun onScaleEnd(detector: ScaleGestureDetector?) {}
+                }
+            )
+            this.setOnTouchListener { view, event ->
+                scaleListener.onTouchEvent(event)
+                true
+            }
+        }
+    }
