@@ -62,6 +62,44 @@ fun String.applyMask(mask: String, hideSymbols: Boolean = false, replacingCharac
 }
 
 /**
+ * @author Sergey Sh. (GreyLabsDev) 2021
+ *
+ * Converting lower case string no name like string 
+ * by detecting spaces in source string
+ *
+ * Example 
+ * source - best name ever
+ * result - Best Name Ever
+ *
+ */
+
+fun String.maskAsName(): String {
+    return if (this.isNotEmpty()) {
+        val builder = StringBuilder()
+        var doUpperCase = false
+        this.forEachIndexed { index, char ->
+            when {
+                index == 0 -> builder.append(char.uppercaseChar())
+                doUpperCase -> {
+                    builder.append(char.uppercaseChar())
+                    doUpperCase = false
+                }
+                index == this.lastIndex -> {
+                    builder.append(char)
+                    return@forEachIndexed
+                }
+                char == ' ' -> {
+                    builder.append(char)
+                    doUpperCase = true
+                }
+                else -> builder.append(char)
+            }
+        }
+        return builder.toString()
+    } else this
+}
+
+/**
  * Parsing date from string by default of custom pattern, return null if parsing failed
  * 
  * @property pattern - date pattern
