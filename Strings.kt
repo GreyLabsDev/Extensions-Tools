@@ -36,21 +36,21 @@ fun String.applyMask(mask: String, hideSymbols: Boolean = false, replacingCharac
     var stringCharIndex = 0
 
     for (i in mask.indices) {
-        when (mask[i].toString()) {
-            "S" -> {
+        when (mask[i]) {
+            'S' -> {
                 if (stringCharIndex <= this.lastIndex) {
                     builder.append(this[stringCharIndex])
                     stringCharIndex++
                 }
             }
-            "*" -> {
+            '*' -> {
                 if (hideSymbols && stringCharIndex <= this.lastIndex) {
                     builder.append(replacingCharacter)
                     stringCharIndex++
                 } else builder.append(mask[i])
             }
             else -> {
-                builder.append(mask[i])
+                if (i <= this.lastIndex) builder.append(mask[i])
             }
         }
     }
