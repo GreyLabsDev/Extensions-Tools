@@ -43,20 +43,20 @@ class MaskedString(private val mask: String): ReadWriteProperty<Any?, String>{
 
         for (i in mask.indices) {
             when (mask[i].toString()) {
-                "S" -> {
+                'S' -> {
                     if (stringCharIndex <= this.lastIndex) {
                         builder.append(this[stringCharIndex])
                         stringCharIndex++
                     }
                 }
-                "*" -> {
+                '*' -> {
                     if (hideSymbols && stringCharIndex <= this.lastIndex) {
                         builder.append(replacingCharacter)
                         stringCharIndex++
                     } else builder.append(mask[i])
                 }
                 else -> {
-                    builder.append(mask[i])
+                    if (i <= this.lastIndex) builder.append(mask[i])
                 }
             }
         }
