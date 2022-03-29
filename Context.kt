@@ -104,3 +104,40 @@ fun Context.getScreenInches() : Double {
 fun Context.hasHaptickFeedback(): Boolean {
     return Settings.System.getInt(this.contentResolver, Settings.System.HAPTIC_FEEDBACK_ENABLED, 0) != 0
 }
+
+fun Context.getScreenSizeSides(): String {
+        val widthPixels = 0
+        val heightPixels = 0
+
+        val windowManager = this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val display = windowManager.defaultDisplay
+        val displayMetrics = DisplayMetrics()
+        display.getMetrics(displayMetrics)
+
+        val realSize = Point()
+        display.getRealSize(realSize)
+        widthPixels = realSize.x
+        heightPixels = realSize.y
+
+        return "$widthPixels x $heightPixels"
+}
+
+fun Context.getScreenSizeSides(): String {
+        val widthPixels = 0
+        val heightPixels = 0
+
+        val windowManager = this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val display = windowManager.defaultDisplay
+        val displayMetrics = DisplayMetrics()
+        display.getMetrics(displayMetrics)
+
+        val realSize = Point()
+        display.getRealSize(realSize)
+        widthPixels = realSize.x
+        heightPixels = realSize.y
+
+        val displayDiagonalInInches = sqrt(
+            (widthPixels / displayMetrics.xdpi).toDouble().pow(2.0) + (heightPixels / displayMetrics.ydpi).toDouble().pow(2.0)
+        )
+        return String.format("%.1f", displayDiagonalInInches)
+    }
