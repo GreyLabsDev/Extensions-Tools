@@ -122,7 +122,7 @@ fun Context.getScreenSizeSides(): String {
         return "$widthPixels x $heightPixels"
 }
 
-fun Context.getScreenSizeSides(): String {
+fun Context.getScreenSizeInInches(): String {
         val widthPixels = 0
         val heightPixels = 0
 
