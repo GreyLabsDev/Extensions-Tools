@@ -140,4 +140,14 @@ fun Context.getScreenSizeInInches(): String {
             (widthPixels / displayMetrics.xdpi).toDouble().pow(2.0) + (heightPixels / displayMetrics.ydpi).toDouble().pow(2.0)
         )
         return String.format("%.1f", displayDiagonalInInches)
-    }
+}
+
+fun Context.clearPreferencesFile(preferencesName: String) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            deleteSharedPreferences(preferencesName)
+        } else {
+            getSharedPreferences(preferencesName, Context.MODE_PRIVATE).edit().clear().apply()
+            val directory = File(applicationInfo.dataDir, "shared_prefs")
+            File(directory, "$preferencesName.xml").delete()
+        }
+}
