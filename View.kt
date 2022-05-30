@@ -3,6 +3,20 @@
  */
 fun View.isVisible(): Boolean = this.visibility == View.VISIBLE
 
+fun <T : View> T.updateWithFadeAnim(duration: Long = 850L, action: T.() -> Unit) {
+    val stepDuration = duration / 2
+    this.animate()
+        .alpha(AnimationProcessor.ALPHA_TRANSPARENT)
+        .setDuration(stepDuration)
+        .withEndAction {
+            action.invoke(this)
+            this.animate()
+                .alpha(AnimationProcessor.ALPHA_OPAQUE)
+                .setDuration(stepDuration)
+                .start()
+        }.start()
+}
+
 /**
  * Animating fade in for view, can execure callback after animation is ended
  * 
