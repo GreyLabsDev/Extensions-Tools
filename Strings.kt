@@ -164,6 +164,12 @@ fun String.isNumeric(): Boolean {
         return this.matches(Regex("-?\\d+(\\.\\d+)?"))
 }
 
+// Replace of deprecated String.capitalise() extension, does the same thing
+
+fun String.upperFirstChar(): String {
+    return this.replaceFirstChar(Char::uppercaseChar)
+}
+
 // Generate hash for string with supported algorithms
 
 private fun String.SHA256(hexChars: String): String {
