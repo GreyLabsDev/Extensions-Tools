@@ -202,6 +202,11 @@ fun List<String>.containsIgnoreCase(value: String?): Boolean {
 }
 
 // Replace code like "someValue != null" with simple sugar extension
-fun Any?.notNull(): Boolean {
+// with smart cast support by Kotlin Cotract
+@OptIn(ExperimentalContracts::class)
+fun <T> T?.notNull(): Boolean {
+    contract {
+        returns(true) implies (this@notNull != null)
+    }
     return this != null
 }
