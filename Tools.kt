@@ -200,3 +200,8 @@ fun List<String>.containsIgnoreCase(value: String?): Boolean {
 	}
 	return false
 }
+
+// Replace code like "someValue != null" with simple sugar extension
+fun Any?.notNull(): Boolean {
+    return this != null
+}
