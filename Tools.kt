@@ -210,3 +210,8 @@ fun <T> T?.notNull(): Boolean {
     }
     return this != null
 }
+
+// Parsing enum by its name, can use dault value
+inline fun <reified E : Enum<E>> parseOrDefault(name: String, default: E, ignoreCase: Boolean = true): E {
+    return enumValues<E>().firstOrNull { it.name.equals(name, ignoreCase) } ?: default
+}
