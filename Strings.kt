@@ -135,14 +135,17 @@ fun String.formatToPrice(): String {
 /**
  * Formatting string as price with optional money symbol
  */
-fun Number.formatToPrice(moneySymbol: String = ""): String {
-    return (NumberFormat.getInstance(Locale.FRANCE) as DecimalFormat).apply {
-        decimalFormatSymbols = DecimalFormatSymbols(Locale.getDefault()).apply {
-            decimalSeparator = '.'
-            groupingSeparator = ' '
-        }
-        applyPattern("#,###,###,###.## $moneySymbol")
-    }.format(this)
+fun Number.formatToPrice(
+    separator: Char = ',',
+    useCurrencySymbol: Boolean = true,
+    currencySymbol: String = "\u20BD",
+    pattern: String = "#,###,### "
+): String {
+    val symbols = DecimalFormatSymbols(Locale.getDefault()).apply {
+        groupingSeparator = separator
+    }
+    val finalPattern = pattern + if (useCurrencySymbol) currencySymbol else ""
+    return DecimalFormat(finalPattern, symbols).format(this)
 }
 
 fun String.isValidEmail(): Boolean {
