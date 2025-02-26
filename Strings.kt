@@ -222,3 +222,10 @@ private fun String.SHA256(hexChars: String): String {
         }
         return out.toString()
     }
+
+// Easy regex check if string is url (http/https)
+fun String.isUrl(): Boolean {
+    return Pattern.compile("^https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$")
+            .matcher(this)
+            .find()
+}
